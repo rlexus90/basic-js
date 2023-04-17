@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+// const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Implement class VigenereCipheringMachine that allows us to create
@@ -20,16 +20,39 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+	constructor(e) {
+		this.type = e;
+	}
+	encrypt(str, key) {
+		const alphavite = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		let ans = '';
+		let nStr = 0;
+		let lKey = key.length - 1;
+		if (!str || !key) return Error('Incorrect arguments!');
+		str = str.toUpperCase();
+		str = str.split('');
+		key = key.toUpperCase();
+		str.forEach(e => {
+			nStr = alphavite.indexOf(e);
+			if (nStr === -1) {
+				ans += e
+				return null
+			}
+			ans += key[(nStr) % lKey];
+		})
+
+		return ans
+	}
+
+	decrypt() {
+
+	}
 }
 
-module.exports = {
-  VigenereCipheringMachine
-};
+// module.exports = {
+//   VigenereCipheringMachine
+// };
+
+
+const directMachine = new VigenereCipheringMachine();
+console.log(directMachine.encrypt('attack at dawn!', 'alphonse'), 'AEIHQX SX DLLU!')
